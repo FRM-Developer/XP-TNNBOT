@@ -286,19 +286,6 @@ conn.sendMessage(id, 'Sama sama, semoga harimu menyenangkan :)' ,MessageType.tex
 
 // Fitur
 
-if (text.includes('.nulis')){
-  var teks = text.replace(/.nulis /, '')
-    axios.get('https://bangandre.herokuapp.com/nulis?teks='+teks)
-    .then((res) => {
-      imageToBase64(res.data.result)
-        .then(
-          (ress) => {
-            conn.sendMessage(id, '[WAIT] Searching...❗', MessageType.text)
-            var buf = Buffer.from(ress, 'base64')
-            conn.sendMessage(id, buf, MessageType.image)
-        })
-    })
-}
 if (text.includes('~tts2')){
   var teks = text.replace(/~tts2 /, '')
     axios.get('http://scrap.terhambar.com/tts?kata=${teks}')
@@ -313,22 +300,12 @@ if (text.includes('~tts2')){
     })
 }
 
-if (text.includes(".say")){
-  const teks = text.replace(/.say /, "")
-conn.sendMessage(id, teks, MessageType.text)
-}
-
 if (text.includes(".ytmp5")){
 const teks = text.replace(/.ytmp5 /, "")
 axios.get(`https://st4rz.herokuapp.com/api/yta?url=${teks}`).then((res) => {
     let hasil = `Audio telah tersedia pada link di bawah, silahkan klik link dan download hasilnya\n👇👇👇👇👇👇👇👇👇\n\nJudul: ${res.data.title}\n\nUkuran audio: ${res.data.filesize}\n\nLink: ${res.data.result}`;
     conn.sendMessage(id, hasil ,MessageType.text);
 })
-}
-else if (text == '.speed') {
-const timestamp = speed();
-const latensi = speed() - timestamp
-conn.sendMessage(id, `PONG!!\nSpeed: ${latensi.toFixed(4)} _Second_`, MessageType.text, {quoted: m})
 }
 if (text.includes('.texthunder')){
   var teks = text.replace(/.texthunder /, '')
